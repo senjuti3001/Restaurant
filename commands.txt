@@ -1,0 +1,7 @@
+Virtual Environment activate - 
+demoresturant\Scripts\Activate.ps1
+
+Superuser - py manage.py createsuperuser
+admin
+admin@gmail.com
+Password: admin12345

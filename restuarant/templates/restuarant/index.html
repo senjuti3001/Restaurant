@@ -1,0 +1,129 @@
+{% extends 'restuarant/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="preloader">
+        <div class="load">
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
+    </div>
+
+
+    <!-------nav part goes here---------->
+    <nav class="nav">
+        <div class="container navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt='logo'>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a data-scroll href="#banner">Home</a></li>
+                    <li><a data-scroll href="#food">about</a></li>
+                    <li><a data-scroll href="#ingredients">ingredients</a></li>
+                    <li><a data-scroll href="#pattern">menu</a></li>
+                    <li><a data-scroll href="#review">reviews</a></li>
+                    <li><a data-scroll href="#form">reservations</a></li>
+                    <li><a data-scroll href="#cart">Cart</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!------------banner part goes here------------->
+
+    <section id="banner">
+        <div class="container banner">
+            <div class="text">
+                <h1>the right ingredients for the right food</h1>
+                <img src="{% static 'images/restaurant-Recovered.png' %}" alt='restaurant'>
+
+                <div class="tag">
+                    <a href="#">BOOK A TABLE</a>
+                    <a href="#">SET THE MENU</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!----------food part goes here-------->
+    {% include 'restuarant/sections/food.html' %}
+
+
+    <!--------ingredients part goes here---------->
+    {% include 'restuarant/sections/ingredients.html' %}
+
+
+    <!----------pattern part goes here----------->
+    {% include 'restuarant/sections/pattern.html' %}
+
+
+    <!--------Cart part goes here---->
+
+    <section id="cart">
+        <div class="container layer">
+            <div class="cart-main">
+                <ul>
+                    <li><a href="index.html">Foods</a></li>
+                    <li><a href="{% url 'resturant:product_list' %}">Details</a></li>
+                    <li class="cart">
+                        <a href="sections/cart.html">
+                            <i class="fa fa-basket"></i>Cart<span>0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="container cart-thing">
+        <div class="cart-img">
+            <img src="{% static 'images/biriyani.jpg' %}" alt='biriyani'/>
+            <h3>Biriyani</h3>
+            <h3>200Tk</h3>
+            <a class="add-cart cart1" href="">Add Cart</a>
+        </div>
+
+
+        <div class="cart-img">
+            <img src="{% static 'images/cherry.jpg' %}" alt="Cherry">
+            <h3>Desert</h3>
+            <h3>350Tk</h3>
+            <a class=" add-cart cart2" href="{% url 'resturant:add_to_cart' %}">Add Cart</a>
+        </div>
+
+
+        <div class="cart-img">
+            <img src="{% static 'images/cherry.jpg' %}" alt="Cherry">
+            <h3>Desert</h3>
+            <h3>350Tk</h3>
+            <a class="add-cart cart3" href="#">Add Cart</a>
+        </div>
+
+
+        <div class="cart-img">
+            <img src="{% static 'images/biriyani.jpg' %}" alt='biriyani'>
+            <h3>Biriyani</h3>
+            <h3>200Tk</h3>
+            <a class="add-cart cart4" href="#">Add Cart</a>
+        </div>
+
+    </div>
+
+
+    <!----------review part goes here------------>
+    {% include 'restuarant/sections/review.html' %}
+
+
+    <!-------------form part goes here--------------->
+    {% include 'restuarant/sections/form.html' %}
+
+
+    <!--------footer part goes here------------>
+    {% include 'restuarant/sections/footer.html' %}
+
+
+{% endblock %}

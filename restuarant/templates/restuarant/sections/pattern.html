@@ -1,0 +1,61 @@
+{% load static %}
+
+<section id="pattern">
+    <div class="container pattern">
+        <div class="pattern-left">
+
+            <div class="pattern-header">
+                <h3>Appetisers</h3>
+                <img src="{% static 'images/pattern.png' %}" alt="">
+            </div>
+
+            {% for apps in Appetisers %}
+                <div class="pattern-menu">
+                    <h3>{{ apps.name }} <span>${{ apps.price }}</span></h3>
+                    <p>{{ apps.description|truncatechars:60 }}</p>
+                </div>
+            {% endfor %}
+
+            <div class="pattern-header">
+                <h3>Salads</h3>
+                <img src="{% static 'images/pattern.png' %}" alt="">
+            </div>
+
+            {% for Salad in Salads %}
+                <div class="pattern-menu">
+                    <h3>{{ Salad.name }} <span>${{ Salad.price }}</span></h3>
+                    <p>{{ Salad.description|truncatechars:60 }}</p>
+                    <button>Add</button>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="pattern-right">
+            <div class="pattern-header">
+                <h3>Starters</h3>
+                <img src="{% static 'images/pattern.png' %}" alt="">
+            </div>
+
+            {% for Starter in Starters %}
+                <div class="pattern-menu">
+                    <h3>{{ Starter.name }}<span>${{ Starter.price }}</span></h3>
+                    <p>{{ Starter.description }}</p>
+                </div>
+            {% endfor %}
+
+            <div class="pattern-header">
+                <h3>Main Dishes</h3>
+                <img src="{% static 'images/pattern.png' %}" alt="">
+            </div>
+
+            {% for main_dish in Main_Dishes %}
+                <div class="pattern-menu">
+                    <h3>{{ main_dish.name }}<span>${{ main_dish.price }}</span></h3>
+                    <p>{{ main_dish.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
