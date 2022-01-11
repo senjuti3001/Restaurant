@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load cart %}
+
 <section id="pattern">
     <div class="container pattern">
         <div class="pattern-left">
@@ -10,9 +12,35 @@
             </div>
 
             {% for apps in Appetisers %}
-                <div class="pattern-menu">
-                    <h3>{{ apps.name }} <span>${{ apps.price }}</span></h3>
-                    <p>{{ apps.description|truncatechars:60 }}</p>
+                <div id="{{ apps.id }}">
+                    <div class="pattern-menu">
+                        <h3 id="nm{{ apps.id }}">{{ apps.name }} <span>${{ apps.price }}</span></h3>
+                        <p>{{ apps.description|truncatechars:60 }}</p>
+                    </div>
+                    <div class="AddToCart">
+                        {% if apps|is_in_cart:request.session.cart %}
+                            <div>
+                                <form action="/#{{ apps.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ apps.id }}">
+                                    <input hidden type="text" name="remove" value="True">
+                                    <input type="submit" value=" - ">
+                                </form>
+                                <span>{{ apps|cart_quantity:request.session.cart }} in Cart</span>
+                                <form action="/#{{ apps.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ apps.id }}">
+                                    <input type="submit" value=" + ">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="/#{{ apps.id }}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="item" value="{{ apps.id }}">
+                                <input type="submit" value="Add to cart">
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
 
@@ -25,8 +53,31 @@
                 <div class="pattern-menu">
                     <h3>{{ Salad.name }} <span>${{ Salad.price }}</span></h3>
                     <p>{{ Salad.description|truncatechars:60 }}</p>
-                    <button>Add</button>
                 </div>
+                <div class="AddToCart">
+                        {% if Salad|is_in_cart:request.session.cart %}
+                            <div>
+                                <form action="/#{{ Salad.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ Salad.id }}">
+                                    <input hidden type="text" name="remove" value="True">
+                                    <input type="submit" value=" - ">
+                                </form>
+                                <span>{{ Salad|cart_quantity:request.session.cart }} in Cart</span>
+                                <form action="/#{{ Salad.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ Salad.id }}">
+                                    <input type="submit" value=" + ">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="/#{{ Salad.id }}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="item" value="{{ Salad.id }}">
+                                <input type="submit" value="Add to cart">
+                            </form>
+                        {% endif %}
+                    </div>
             {% endfor %}
 
         </div>
@@ -41,7 +92,32 @@
                 <div class="pattern-menu">
                     <h3>{{ Starter.name }}<span>${{ Starter.price }}</span></h3>
                     <p>{{ Starter.description }}</p>
+
                 </div>
+                <div class="AddToCart">
+                        {% if Starter|is_in_cart:request.session.cart %}
+                            <div>
+                                <form action="/#{{ Starter.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ Starter.id }}">
+                                    <input hidden type="text" name="remove" value="True">
+                                    <input type="submit" value=" - ">
+                                </form>
+                                <span>{{ Starter|cart_quantity:request.session.cart }} in Cart</span>
+                                <form action="/#{{ Starter.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ Starter.id }}">
+                                    <input type="submit" value=" + ">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="/#{{ Starter.id }}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="item" value="{{ Starter.id }}">
+                                <input type="submit" value="Add to cart">
+                            </form>
+                        {% endif %}
+                    </div>
             {% endfor %}
 
             <div class="pattern-header">
@@ -54,6 +130,30 @@
                     <h3>{{ main_dish.name }}<span>${{ main_dish.price }}</span></h3>
                     <p>{{ main_dish.description }}</p>
                 </div>
+                <div class="AddToCart">
+                        {% if main_dish|is_in_cart:request.session.cart %}
+                            <div>
+                                <form action="/#{{ main_dish.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ main_dish.id }}">
+                                    <input hidden type="text" name="remove" value="True">
+                                    <input type="submit" value=" - ">
+                                </form>
+                                <span>{{ main_dish|cart_quantity:request.session.cart }} in Cart</span>
+                                <form action="/#{{ apps.id }}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="item" value="{{ main_dish.id }}">
+                                    <input type="submit" value=" + ">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="/#{{ main_dish.id }}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="item" value="{{ main_dish.id }}">
+                                <input type="submit" value="Add to cart">
+                            </form>
+                        {% endif %}
+                    </div>
             {% endfor %}
         </div>
     </div>

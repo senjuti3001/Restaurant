@@ -24,5 +24,10 @@ class Menu(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
 
+
+    @staticmethod
+    def get_item_by_id(ids):
+        return Menu.objects.filter(id__in =ids)
+
     def __str__(self):
         return self.title

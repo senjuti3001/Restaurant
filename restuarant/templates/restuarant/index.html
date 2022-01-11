@@ -1,5 +1,6 @@
 {% extends 'restuarant/base.html' %}
 {% load static %}
+{% load cart %}
 
 {% block content %}
 
@@ -27,7 +28,8 @@
                     <li><a data-scroll href="#pattern">menu</a></li>
                     <li><a data-scroll href="#review">reviews</a></li>
                     <li><a data-scroll href="#form">reservations</a></li>
-                    <li><a data-scroll href="#cart">Cart</a></li>
+                    <li><a id="cart" data-scroll href="#cart">Cart</a></li>
+{#                    <li><button id="cart" data-scroll href="#cart">Cart</button></li>#}
                 </ul>
             </div>
         </div>

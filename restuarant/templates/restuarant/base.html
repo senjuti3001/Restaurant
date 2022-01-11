@@ -16,33 +16,11 @@
 
 
     <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
     <link rel="stylesheet" href="{% static "css/product_list_style.css" %}">
-
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+{#    <script src="https://code.jquery.com/jquery-3.6.0.js"#}
+{#            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-
-    <script type="text/javascript">
-        var user = "{{ request.user }}"
-
-        function getToken(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getToken('csrftoken');
-
-
-    </script>
 </head>
 
 <body>
@@ -50,9 +28,9 @@ const csrftoken = getToken('csrftoken');
 {% block content %}
 
 {% endblock %}
+</body>
 <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
-</body>
+
 
 </html>

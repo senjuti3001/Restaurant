@@ -1,5 +1,6 @@
 {% extends 'restuarant/base.html' %}
 {% load static %}
+{% load cart %}
 {% block content %}
 
     <div class="cart-page container">
@@ -9,65 +10,36 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/biriyani.jpg">
-                        <div>
-                            <p>Biriyani</p>
-                            <small>price: 250Tk</small>
-                            <br>
-                            <a href="">Remove</a>
+
+            {% for item in items %}
+
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="{% static 'images/biriyani.jpg' %}">
+                            <div>
+                                <p>{{ item.name }}</p>
+                                <small>price: {{ item.price }}Tk</small>
+                                <br>
+                                <a href="">Remove</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>250Tk</td>
-            </tr>
+                    </td>
+                    <td>{{ item|cart_quantity:request.session.cart }}</td>
+                    <td>{{ item|price_total:request.session.cart }}Tk</td>
+                </tr>
+            {% endfor %}
 
 
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/ingredients.jpg">
-                        <div>
-                            <p>Vegetable</p>
-                            <small>price: 200Tk</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>200Tk</td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/cherry.jpg">
-                        <div>
-                            <p>Desert</p>
-                            <small>price: 350Tk</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>350Tk</td>
-            </tr>
         </table>
 
         <div class="total-price">
             <table>
                 <tr>
                     <td>Subtotal</td>
-                    <td>800TK</td>
+                    <td>{{ items|total_cart_price:request.session.cart }}TK</td>
                 </tr>
             </table>
-
         </div>
     </div>
 

@@ -1,20 +1,65 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from .models import Menu
-import json
+from django.shortcuts import render, redirect
+from restuarant.models import Menu
+
+# New import for Cart
+from django.views import View
+
+
+# Class based views
+class Index(View):
+
+    def post(self, request):
+        item = request.POST.get('item')
+        remove = request.POST.get('remove')
+        cart = request.session.get('cart')
+        if cart:
+            quantity = cart.get(item)
+            if quantity:
+                if remove:
+                    if quantity <= 1:
+                        cart.pop(item)
+                    else:
+                        cart[item] = quantity - 1
+                else:
+                    cart[item] = quantity + 1
+            else:
+                cart[item] = 1
+        else:
+            cart = {}
+            cart[item] = 1
+        request.session['cart'] = cart
+        print(request.session['cart'])
+        return redirect('resturant:pattern')
+
+    def get(self, request):
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart'] = {}
+        appetisers = Menu.objects.filter(title='Appetisers')
+        salads = Menu.objects.filter(title='Salads')
+        starters = Menu.objects.filter(title='Starters')
+        main_dishes = Menu.objects.filter(title='Main_Dishes')
+        return render(request, 'restuarant/index.html',
+                      {'Appetisers': appetisers,
+                       'Salads': salads,
+                       'Starters': starters,
+                       'Main_Dishes': main_dishes})
+
+
+# def individual_food(request):
+#     # menu_foods = Menu.objects.all()
+#     appetisers = Menu.objects.filter(title='Appetisers')
+#     salads = Menu.objects.filter(title='Salads')
+#     starters = Menu.objects.filter(title='Starters')
+#     main_dishes = Menu.objects.filter(title='Main_Dishes')
+#     return render(request, 'restuarant/index.html',
+#                   {'Appetisers': appetisers,
+#                    'Salads': salads,
+#                    'Starters': starters,
+#                    'Main_Dishes': main_dishes})
+
 
 # Create your views here.
-def individual_food(request):
-    # menu_foods = Menu.objects.all()
-    appetisers = Menu.objects.filter(title='Appetisers')
-    salads = Menu.objects.filter(title='Salads')
-    starters = Menu.objects.filter(title='Starters')
-    main_dishes = Menu.objects.filter(title='Main_Dishes')
-    return render(request, 'restuarant/index.html',
-                  {'Appetisers': appetisers,
-                   'Salads': salads,
-                   'Starters': starters,
-                   'Main_Dishes': main_dishes})
 
 
 def product_list(request):
@@ -23,31 +68,3 @@ def product_list(request):
 
 def add_to_cart(request):
     return render(request, 'restuarant/sections/cart.html')
-
-
-
-def updateItem(request):
-    data = json.loads(request.body)
-    productId = data['productId']
-    action = data['action']
-
-    print('Action:', action)
-    print('productId:', productId)
-
-    customer = request.user.customer
-    product = product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-
-    if action == 'add':
-        orderItem.quantity = (orderItem.quantity + 1)
-    elif action == 'remove':
-        orderItem.quantity = (orderItem.quantity - 1)
-
-        orderItem.save()
-
-        if orderItem.quantity <= 0:
-            orderItem.delete()
-
-    return JsonResponse('Item was added', safe=False)

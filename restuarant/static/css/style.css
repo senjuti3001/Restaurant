@@ -984,7 +984,7 @@ button {
     outline: none;
     border-radius: 0;
     background: none;
-    border: 1px solid #282b33;
+    border: 1px solid #FFD700;
 }
 
 button,
@@ -996,12 +996,12 @@ select {
 
 button {
     background: none;
-    border: 1px solid black;
+    border: 1px solid #FFD700;
     margin: 25px 0;
 }
 
 button:hover {
-    background-color: #282b33;
+    background-color: #FFD700;
     color: white;
 }
 
