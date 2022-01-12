@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from restuarant.models import Menu
+from restuarant.model.models import Menu
 
 # New import for Cart
 from django.views import View

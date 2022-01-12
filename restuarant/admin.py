@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # import from model
-from .models import Category, Menu
+from restuarant.model.models import Category, Menu
 
 
 # Register your models here.
